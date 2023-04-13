@@ -23,7 +23,5 @@ artifacts:
     files:
         - '**/*'
     base-directory: 
-      - public/**/*
-      - src/**/*
-      - package.json
-      - scripts/**/*
+       - package.json
+
