@@ -22,4 +22,9 @@ phases:
 artifacts:
     files:
         - '**/*'
-    base-directory: dist
+    base-directory: 
+      - public/**/*
+      - src/**/*
+      - package.json
+      - appspec.yml
+      - scripts/**/*
