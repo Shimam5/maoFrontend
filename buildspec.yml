@@ -23,5 +23,5 @@ artifacts:
     files:
         - '**/*'
     base-directory: 
-       - package.json
+       - '**/*'
 
