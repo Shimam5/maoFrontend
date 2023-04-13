@@ -1,27 +1,37 @@
-version: 0.2
 
-phases: 
+# Do not change version. This is the version of aws buildspec, not the version of your buldspec file.
+  version: 0.2
+  phases:
     install:
-        runtime-versions:
-            nodejs: latest
-        commands:
-            - echo "installing something"
+      commands:
+            - echo update npm...
+            - npm install -g n
+            - n latest
+            - npm update -g npm
+            - echo node -v
+            - node -v
+            - echo npm -v
+            - npm -v
+            - echo install yarn...
             - npm install -g yarn
+            - echo yarn -v
+            - yarn -v
     pre_build:
-        commands: 
-            - echo "we are in the pre build phase"
-            - yarn install
+      commands:
+        #installs dependencies into the node_modules/ directory
+        - echo Entered the pre_build phase...
+        - yarn install
     build:
-        commands:
-            - echo "we are in the build block"
-            - echo "we will run some tests"
-            - yarn build
+      commands:
+        - echo Build started on `date`
+        - echo Compiling
+        - yarn run build
     post_build:
-        commands:
-            - echo "we are in the post build phase"
-artifacts:
+      commands:
+        - echo Build completed on `date`
+  # Include only the files required for your application to run.
+  artifacts:
     files:
         - '**/*'
-    base-directory: 
-       - '**/*'
-
+        base-directory: 
+       - maoFrontend/package.json
