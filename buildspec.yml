@@ -1,37 +1,32 @@
+version: 0.2
 
-# Do not change version. This is the version of aws buildspec, not the version of your buldspec file.
-  version: 0.2
-  phases:
-    install:
-      commands:
-            - echo update npm...
-            - npm install -g n
-            - n latest
-            - npm update -g npm
-            - echo node -v
-            - node -v
-            - echo npm -v
-            - npm -v
-            - echo install yarn...
-            - npm install -g yarn
-            - echo yarn -v
-            - yarn -v
-    pre_build:
-      commands:
-        #installs dependencies into the node_modules/ directory
-        - echo Entered the pre_build phase...
-        - yarn install
-    build:
-      commands:
-        - echo Build started on `date`
-        - echo Compiling
-        - yarn run build
-    post_build:
-      commands:
-        - echo Build completed on `date`
-  # Include only the files required for your application to run.
-  artifacts:
-    files:
-        -   package.json
-    base-directory: 
-       -  dist
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      - echo "Installing Homebrew"
+      - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc && source ~/.bashrc
+      - eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      - echo "Installing Node.js and dependencies"
+      - brew install gcc
+      - brew install node
+      - node -v
+      - brew install yarn
+      - yarn -v
+      - sudo npm install --verbose
+      - echo "Installing dependencies..."
+      - npm install -g eslint@8.26.0
+      - npm install dotenv@16.0.0 
+      - npm install form-data@4.0.0 lodash@4.17.21 moment@2.29.1 
+      - npm install next@13.0.1 
+      - npm install react@18.2.0 
+      - npm install react-content-loader@6.2.0 react-device-detect@2.2.2 react-dom@18.2.0 react-grid-system@8.1.6 react-lodash@0.1.2 react-paginate@8.1.4 react-select@5.6.1 
+  build:
+    commands:
+      - echo "Build started on `date`"
+      - npm run build
+  post_build:
+    commands:
+      - echo "Build completed on `date`"
